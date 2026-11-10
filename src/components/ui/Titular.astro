@@ -1,0 +1,22 @@
+---
+// Titular de sección: antetítulo en letra menuda (caja normal) + título en Chivo Mono 800 + entrada. Sin campos, no pinta nada.
+// `cabeza`: con filete de tinta de 2 px arriba, título a la izquierda y entrada a la derecha en escritorio.
+// El título se mide contra su propia columna (.titular-a, container query) para que ninguna palabra se salga ni se parta.
+interface Props { titulo?: string; antetitulo?: string; texto?: string; class?: string; nivel?: 1 | 2; cabeza?: boolean }
+const { titulo, antetitulo, texto, class: clase = '', nivel = 2, cabeza = false } = Astro.props;
+const H = nivel === 1 ? 'h1' : 'h2';
+---
+
+{
+  (titulo || antetitulo || texto) && (
+    <div class:list={[cabeza ? 'cabeza' : 'titular', clase]}>
+      {(antetitulo || titulo) && (
+        <div class="titular-a">
+          {antetitulo && <p class="antetitulo">{antetitulo}</p>}
+          {titulo && <H class="titulo-seccion">{titulo}</H>}
+        </div>
+      )}
+      {texto && <p class="entrada">{texto}</p>}
+    </div>
+  )
+}

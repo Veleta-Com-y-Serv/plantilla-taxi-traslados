@@ -1,0 +1,80 @@
+---
+// Contacto: a la izquierda `antetitulo`, `titulo`, `texto` y las vías en filas (WhatsApp, email, dirección con mapa);
+// a la derecha el teléfono como cartel: placa de tinta con el número enorme en ámbar, «Llamar», WhatsApp y el horario
+// de `contacto`. Si la sección `reservar` no está activa, aquí sale el formulario de reserva. Todo de site.yaml → contacto.
+import { seccion, site, tel, whatsapp, mapa } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const c = site.contacto;
+const wa = whatsapp(c.whatsapp, `Hola, quiero pedir un taxi a ${site.nombre}`);
+const conFormulario = !seccion('reservar');
+const hayVias = !!(c.whatsapp || c.email || c.direccion);
+const hayIzquierda = !!(s?.titulo || s?.antetitulo || s?.texto || hayVias || conFormulario);
+const hayCartel = !!(c.telefono || c.whatsapp || c.horario);
+---
+
+{
+  s && (hayIzquierda || hayCartel) && (
+    <section id={id} class="banda banda--papel">
+      <div class="contenedor contacto-rejilla">
+        {hayIzquierda && <div>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+          {hayVias && (
+            <ul class="vias">
+              {c.whatsapp && (
+                <li>
+                  <a href={wa} rel="noopener" target="_blank">
+                    <span class="celda-icono"><Icono nombre="whatsapp" tam={20} /></span>
+                    <span><span class="menuda">WhatsApp</span><span class="vias-dato">{c.whatsapp}</span></span>
+                  </a>
+                </li>
+              )}
+              {c.email && (
+                <li>
+                  <a href={`mailto:${c.email}`}>
+                    <span class="celda-icono"><Icono nombre="correo" tam={20} /></span>
+                    <span><span class="menuda">Correo</span><span class="vias-dato">{c.email}</span></span>
+                  </a>
+                </li>
+              )}
+              {c.direccion && (
+                <li>
+                  <a href={mapa(c.direccion)} rel="noopener" target="_blank">
+                    <span class="celda-icono"><Icono nombre="mapa" tam={20} /></span>
+                    <span><span class="menuda">Dónde estamos</span><span class="vias-dato">{c.direccion}</span></span>
+                  </a>
+                </li>
+              )}
+            </ul>
+          )}
+          {conFormulario && (
+            <div class="pozo contacto-form">
+              <FormularioContacto modelo="traslado" prefijo={`${id}-f`} boton="Pedir la reserva" />
+            </div>
+          )}
+        </div>}
+        {hayCartel && (
+          <div class="cartel">
+            {c.telefono && (
+              <>
+                <p class="menuda">Teléfono</p>
+                <a class="cartel-tel" href={tel(c.telefono)}>{c.telefono}</a>
+              </>
+            )}
+            {(c.telefono || wa) && (
+              <div class="botones">
+                {c.telefono && <a class="btn" href={tel(c.telefono)}><Icono nombre="telefono" tam={18} /> Llamar</a>}
+                {wa && <a class="btn-sec" href={wa} rel="noopener" target="_blank"><Icono nombre="whatsapp" tam={18} /> WhatsApp</a>}
+              </div>
+            )}
+            {c.horario && <p class="cartel-horario">{c.horario}</p>}
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}

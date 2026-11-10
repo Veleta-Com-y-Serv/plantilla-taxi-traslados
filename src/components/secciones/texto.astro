@@ -1,0 +1,42 @@
+---
+// Apartado genérico (`tipo: texto` o cualquier id sin componente propio): `antetitulo`, `titulo`, `texto` (párrafos
+// separados por una línea en blanco), `imagen` opcional en marco de tinta, `items` como lista con filetes y `cta`.
+import { seccion, parrafos } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const items = s ? s.items.filter((it) => it && it.titulo) : [];
+const ps = parrafos(s?.texto);
+---
+
+{
+  s && (s.titulo || ps.length > 0 || items.length > 0 || s.imagen) && (
+    <section id={id} class="banda banda--papel">
+      <div class:list={['contenedor texto-rejilla', { 'texto-rejilla--foto': s.imagen }]}>
+        <div>
+          <Titular cabeza antetitulo={s.antetitulo} titulo={s.titulo} />
+          {ps.length > 0 && <div class="texto-parrafos">{ps.map((p) => <p>{p}</p>)}</div>}
+          {items.length > 0 && (
+            <ul class="lista-marcas">
+              {items.map((it) => (
+                <li>
+                  <p class="filas-titulo">{it.titulo}</p>
+                  {it.texto && <p class="filas-texto">{it.texto}</p>}
+                </li>
+              ))}
+            </ul>
+          )}
+          {s.cta && <p class="botones"><a class="btn-sec" href={s.cta.url}>{s.cta.texto}</a></p>}
+        </div>
+        {s.imagen && (
+          <div class="foto marco texto-foto">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={900} />
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}

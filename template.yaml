@@ -1,0 +1,121 @@
+# Metadatos de la plantilla para el catálogo de NoExpertise.
+id: taxi-traslados
+nombre: Taxi y traslados
+descripcion: "Web de señalética para taxis, VTC y traslados: tablero de precios cerrados, vehículos y reserva."
+sectores:
+  - { id: taxi, nombre: Taxi y VTC }
+  - { id: traslados, nombre: Traslados y transfers }
+  - { id: microbus, nombre: Microbuses y furgonetas con conductor }
+  - { id: transporte-adaptado, nombre: Transporte adaptado }
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: servicios, nombre: Servicios }
+  - { id: tarifas, nombre: Tarifas }
+  - { id: flota, nombre: Vehículos }
+  - { id: reservar, nombre: Reservar }
+  - { id: empresas, nombre: Empresas y hoteles }
+  - { id: zonas, nombre: Dónde trabajamos }
+  - { id: opiniones, nombre: Opiniones }
+  - { id: preguntas, nombre: Preguntas frecuentes }
+  - { id: contacto, nombre: Contacto }
+estilo: wayfind
+plan_minimo: gratis
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-taxi-traslados.noexpertise.com
+activa: true
+orden: 740
+
+# Fichas por elemento (docs/plantillas.md § Fichas por elemento): cada servicio y cada trayecto con `detalle` tiene su
+# página (/servicios/<slug>/, /traslados/<slug>/), y cada zona con `texto`, la suya (/zonas/<slug>/: «Taxi en Reinosa»).
+# Espejo en src/data/fichas.ts.
+fichas:
+  - { lista: servicios, campo: items, ruta: servicios, nombre: Servicio, tipo: TaxiService }
+  - { lista: tarifas, campo: tarifas, ruta: traslados, nombre: Traslado, tipo: TaxiService }
+zonas:
+  ruta: zonas
+
+# Varias páginas (docs/plantillas.md § Varias páginas): reparto recomendado al activar «Varias páginas».
+# Inicio se queda con la portada y lo que no esté en ninguna página (aquí, servicios y opiniones).
+paginas:
+  - { ruta: tarifas, titulo: Tarifas, secciones: "tarifas; zonas" }
+  - { ruta: vehiculos, titulo: Vehículos, secciones: "flota; empresas" }
+  - { ruta: reservar, titulo: Reservar, secciones: "reservar; preguntas; contacto" }
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tu taxi"
+    pregunta: "¿Cómo se llama tu taxi o tu empresa de traslados, y desde dónde trabajas?"
+    ayuda: "Por ejemplo: taxi de Reinosa, traslados al aeropuerto y a las pistas, servicio de noche o coche de siete plazas."
+    tipo: texto
+    campos: [nombre, eslogan, seo.titulo, seo.descripcion, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.texto, secciones.hero.destacado.titulo, secciones.hero.destacado.texto]
+  - id: contacto
+    titulo: "Cómo te piden un taxi"
+    pregunta: "¿A qué teléfono te llaman y por dónde te pueden escribir para reservar?"
+    ayuda: "El teléfono sale grande en toda la web y en la barra del móvil. Si usas WhatsApp, ponlo: saldrá un botón para reservar por ahí."
+    tipo: datos
+    campos: [contacto.telefono, contacto.whatsapp, contacto.email, contacto.direccion, contacto.horario, redes.instagram, redes.facebook]
+  - id: servicios
+    titulo: "Tus servicios"
+    pregunta: "¿Qué viajes haces? Uno por línea, y si es al momento o con reserva."
+    ayuda: "Por ejemplo: «Taxi 24 horas por el pueblo y el valle, al momento», «Aeropuertos, con reserva», pistas de esquí, hospital y consultas, bodas, senderistas y bicis o servicio adaptado."
+    tipo: lista
+    campos: [secciones.servicios.items]
+  - id: tarifas
+    titulo: "Tus trayectos y precios"
+    pregunta: "¿Qué trayectos te piden más y cuánto cuestan? Uno por línea: destino, kilómetros, tiempo y precio."
+    ayuda: "Por ejemplo: «Aeropuerto de Santander, 75 km, 55 minutos, 95 €». Solo los precios que quieras enseñar: los que dejes en blanco no salen."
+    tipo: lista
+    campos: [secciones.tarifas.tarifas]
+  - id: condiciones
+    titulo: "Cómo cobras"
+    pregunta: "¿Desde dónde salen esos precios y qué cambia de noche, en festivos o con coche grande?"
+    ayuda: "Por ejemplo: precio cerrado para todo el coche y hasta cuatro personas; de noche y en festivos, se dice al reservar."
+    tipo: texto
+    campos: [secciones.tarifas.titulo, secciones.tarifas.texto, secciones.tarifas.origen, secciones.tarifas.nota]
+  - id: flota
+    titulo: "Tus vehículos"
+    pregunta: "¿Qué coches o furgonetas tienes? Uno por línea, con las plazas y el equipaje que caben."
+    ayuda: "Por ejemplo: «Monovolumen de 7 plazas, 5 maletas» o «Furgoneta adaptada con rampa para silla de ruedas». Las fotos las pones luego."
+    tipo: lista
+    campos: [secciones.flota.vehiculos]
+  - id: reservar
+    titulo: "Cómo se reserva"
+    pregunta: "¿Cómo se reserva un traslado contigo y con cuánta antelación?"
+    ayuda: "Por ejemplo: te llaman o te escriben, das el precio cerrado y esperas en llegadas con un cartel. Y qué pasa si el vuelo o el tren se retrasa."
+    tipo: texto
+    campos: [secciones.reservar.titulo, secciones.reservar.texto, secciones.reservar.items, secciones.reservar.nota]
+  - id: empresas
+    titulo: "Empresas y hoteles"
+    pregunta: "¿Trabajas con hoteles, casas rurales, bodegas o empresas? Cuéntame cómo."
+    ayuda: "Por ejemplo: factura a final de mes, recogida de sus clientes en la estación o un teléfono directo para recepción. Si no, salta este paso."
+    tipo: texto
+    campos: [secciones.empresas.titulo, secciones.empresas.texto, secciones.empresas.items]
+  - id: zonas
+    titulo: "Dónde trabajas"
+    pregunta: "¿En qué pueblos y ciudades recoges a la gente?"
+    ayuda: "Escribe tu pueblo y los de alrededor. Cada uno puede tener luego su propia página, «Taxi en …», que ayuda a que te encuentren en Google."
+    tipo: texto
+    campos: [secciones.zonas.titulo, secciones.zonas.texto, secciones.zonas.items]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué te preguntan siempre por teléfono? Escribe cada pregunta y lo que respondes."
+    ayuda: "Por ejemplo: si das el precio antes, qué pasa si el vuelo llega tarde, si llevas sillas para niños, si caben los esquís o si se paga con tarjeta."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto de portada (tu coche en un sitio conocido de tu zona) y, si quieres, las de tus vehículos."
+    ayuda: "Sube las tuyas o elige una del banco. Mejor sin matrículas ni caras que se reconozcan. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.empresas.imagen, secciones.zonas.imagen]
+  - id: aspecto
+    titulo: "Colores y logo"
+    pregunta: "Elige los colores de tu web y, si tienes, tu logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso

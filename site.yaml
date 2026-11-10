@@ -1,0 +1,252 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Una sola página: el menú apunta a anclas (#id-de-sección).
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+# Listas planas: nunca una lista dentro de un elemento de lista. Precios, plazas y distancias, siempre entre comillas.
+nombre: Taxi Campoo
+eslogan: "Taxi 24 horas en Reinosa y Campoo. Aeropuerto, estaciones, Alto Campoo y hospital, con precio cerrado."
+sector: taxi
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = el nombre en la letra de la web.
+colores:
+  primario: "#f4b522"   # ámbar: placas, cifras sobre la banda oscura y precios del tablero
+  acento: "#2055e1"     # cobalto: botón principal, enlaces al pasar y foco
+  fondo: "#edf0f4"      # papel gris frío
+  texto: "#0b0e15"      # tinta azul casi negra: letra, bordes, banda de tarifas y pie
+contacto:
+  telefono: "942 000 000"
+  email: reservas@taxicampoo.es
+  direccion: "Plaza de España 3, 39200 Reinosa (Cantabria)"
+  horario: "Todos los días, las 24 horas. Reservas con antelación por teléfono o WhatsApp."
+  whatsapp: "+34 600 000 000"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: https://www.facebook.com/
+  linkedin: ""
+menu:
+  - { texto: Servicios, url: "/#servicios" }
+  - { texto: Tarifas, url: "/#tarifas" }
+  - { texto: Vehículos, url: "/#flota" }
+  - { texto: Empresas, url: "/#empresas" }
+  - { texto: Zonas, url: "/#zonas" }
+  - { texto: Contacto, url: "/#contacto" }
+boton_cabecera: { texto: Reservar, url: "/#reservar" }
+seo:
+  titulo: "Taxi Campoo · Taxi 24 horas y traslados en Reinosa"
+  descripcion: "Taxi en Reinosa y Campoo a cualquier hora: aeropuerto de Santander, estaciones, Alto Campoo y Valdecilla. Precio cerrado y coches de 7 y 9 plazas."
+  tipo: LocalBusiness
+marca_pie: true
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: Taxi en Reinosa y todo Campoo
+    titulo: Tu taxi en Campoo, día y noche
+    texto: "Aeropuerto, estación, pistas u hospital. Precio cerrado antes de salir."
+    imagen: /fotos/hero.jpg
+    tablero: Precios cerrados desde Reinosa
+    destacado: { titulo: Servicio 24 horas, texto: "Todos los días del año, también festivos." }
+    cta: { texto: Llamar ahora, url: "tel:+34942000000" }
+    cta_secundario: { texto: Reservar un traslado, url: "/#reservar" }
+
+  servicios:
+    activa: true
+    antetitulo: Servicios
+    titulo: A donde tengas que ir
+    texto: "Trayectos por el valle y viajes largos. Al momento o con reserva."
+    items:
+      - { titulo: Taxi 24 horas, texto: "Por Reinosa, Campoo y los pueblos del valle, a cualquier hora.", icono: taxi, disponible: Al momento }
+      - titulo: Aeropuertos
+        texto: "Santander, Bilbao y Asturias. Te esperamos en llegadas con un cartel con tu nombre."
+        icono: avion
+        disponible: Con reserva
+        imagen: /fotos/aeropuerto.jpg
+        detalle: |
+          Ir al aeropuerto desde Campoo no tiene por qué ser un problema. Nos dices el día, la hora del vuelo y desde dónde sales, y te recogemos en la puerta de casa con tiempo de sobra para facturar sin prisas. El precio te lo decimos al reservar y es el que pagas, haya el tráfico que haya.
+
+          A la vuelta, miramos el estado de tu vuelo antes de salir. Si llega con retraso, esperamos. Te recibimos en la zona de llegadas con un cartel con tu nombre, te ayudamos con las maletas y te dejamos en casa, en el hotel o en la casa rural.
+
+          Trabajamos con los aeropuertos de Santander, Bilbao y Asturias, y también con otros si el viaje lo pide. Para familias y grupos tenemos coches grandes con maletero amplio, y sillas para los más pequeños si nos lo pides al reservar.
+      - titulo: Estaciones de tren y autobús
+        texto: "Santander, Palencia y Aguilar. Llegamos antes que tu tren."
+        icono: tren
+        disponible: Con reserva
+        detalle: |
+          Muchos viajes empiezan o terminan en una estación lejos de casa. Te llevamos a la estación de Santander, a la del AVE de Palencia o a la de Aguilar de Campoo, y te recogemos a la vuelta aunque llegues de madrugada.
+
+          Para no ir con el tiempo justo, calculamos la salida contigo según la hora del tren y la época del año: en invierno, con nieve o niebla en el puerto, salimos antes. Si el tren llega tarde, lo vemos y te esperamos en la puerta de la estación.
+
+          Es el servicio que más piden quienes estudian o trabajan fuera, los que vienen a pasar unos días al valle y las personas mayores que van a ver a la familia. Puedes reservar ida y vuelta de una vez y te confirmamos las dos horas por WhatsApp.
+      - titulo: Alto Campoo y la nieve
+        texto: "Subida a pistas con portaesquís. Bajada a la hora que nos digas."
+        icono: nieve
+        disponible: Con reserva
+        imagen: /fotos/esqui.jpg
+        detalle: |
+          Subir a Alto Campoo en taxi es la forma más cómoda de pasar el día en la nieve sin pelearte con el aparcamiento ni con las cadenas. Te recogemos en Reinosa, en tu alojamiento o en la estación, cargamos los esquís o la tabla y te dejamos al pie de las pistas.
+
+          Por la tarde volvemos a por ti a la hora que acordemos. Si el día se alarga o se cierra el tiempo, nos llamas y cambiamos la hora. Nuestros coches van preparados para el invierno y conocemos la carretera del puerto con nieve y con hielo.
+
+          Para cuadrillas y familias, la furgoneta lleva a todo el grupo y el material en un solo viaje. También hacemos traslados a otras estaciones de la cordillera si vienes a pasar varios días.
+      - titulo: Hospital y consultas
+        texto: "Valdecilla, Sierrallana y el centro de salud. Te esperamos a la salida."
+        icono: hospital
+        disponible: Con reserva
+        detalle: |
+          Cuando toca ir al médico lejos de casa, lo último que quieres es estar pendiente del coche y del aparcamiento. Te llevamos al hospital de Valdecilla, al de Sierrallana o a la consulta que tengas, y te esperamos a la salida o volvemos a por ti cuando termines.
+
+          Te ayudamos a subir y bajar del coche, llevamos la silla plegable si la necesitas y, si vas en silla de ruedas, tenemos una furgoneta con rampa. Puedes ir acompañado sin pagar más.
+
+          Si tu traslado lo cubre la seguridad social o una mutua, pregúntanos y te explicamos cómo hacerlo. Y si las citas son seguidas, para un tratamiento o una revisión, te reservamos el taxi para todos los días de una vez.
+      - { titulo: Bodas y celebraciones, texto: "Coche limpio y adornado para los novios y traslados de invitados.", icono: anillo, disponible: Con reserva, imagen: /fotos/boda.jpg }
+      - titulo: Senderistas y bicis
+        texto: "Te dejamos al inicio de la ruta y te recogemos al final, con las bicis."
+        icono: bici
+        disponible: Con reserva
+        imagen: /fotos/senderistas.jpg
+        detalle: |
+          Las mejores rutas de Campoo no empiezan y terminan en el mismo sitio. Te dejamos al inicio de la etapa, en el nacimiento del Ebro, en el puerto o en el pueblo que nos digas, y te recogemos al final para que no tengas que volver sobre tus pasos.
+
+          Llevamos las bicis en la furgoneta con portabicis y las mochilas en el maletero. Si haces una ruta de varios días, podemos mover tu equipaje de un alojamiento a otro mientras caminas o pedaleas.
+
+          Antes de salir te preguntamos el recorrido y la hora a la que calculas acabar. Si te retrasas, nos escribes por WhatsApp y cambiamos la hora de recogida. Es un servicio pensado para grupos de amigos, clubes y quienes vienen de fuera a conocer el valle.
+      - { titulo: Servicio adaptado, texto: "Furgoneta con rampa y anclajes para viajar en tu silla de ruedas.", icono: silla, disponible: Con reserva }
+
+  tarifas:
+    activa: true
+    antetitulo: Tarifas
+    titulo: Cuánto cuesta tu trayecto
+    texto: "Precio cerrado por trayecto y para todo el coche. Lo que ves es lo que pagas."
+    origen: Salidas desde Reinosa
+    nota: "Precios de día para hasta cuatro personas. De noche, en festivos o en coche grande, te lo decimos al reservar."
+    tarifas:
+      - nombre: Aeropuerto de Santander
+        categoria: Aeropuerto
+        distancia: "75 km"
+        duracion: "55 min"
+        precio: "95 €"
+        detalle: |
+          El traslado de Reinosa al aeropuerto Seve Ballesteros de Santander es el que más hacemos. Te recogemos en casa o en tu alojamiento a la hora que acordemos, con margen para facturar y pasar el control sin prisas, y te dejamos en la puerta de salidas.
+
+          A la vuelta te esperamos en llegadas con un cartel con tu nombre. Miramos el vuelo antes de salir de Reinosa, así que si se retrasa no tienes que avisarnos: estaremos allí cuando aterrices.
+
+          El precio es cerrado y es para todo el coche, no por persona. Si viajáis más o con mucho equipaje, reservamos el monovolumen o la furgoneta y te decimos el precio al momento.
+      - nombre: Estación de Santander
+        categoria: Tren y autobús
+        distancia: "72 km"
+        duracion: "50 min"
+        precio: "90 €"
+        detalle: |
+          Te llevamos desde Reinosa hasta las estaciones de tren y de autobús de Santander, que están una al lado de la otra. Es la mejor opción cuando el horario del tren de Reinosa no te encaja o cuando viajas con mucho equipaje.
+
+          Calculamos la hora de salida contigo según tu tren o tu autobús, y en invierno contamos con el estado del puerto. A la vuelta te esperamos en la puerta de la estación aunque llegues tarde.
+
+          Puedes reservar la ida y la vuelta de una vez. Te confirmamos las dos por WhatsApp el día antes, con el nombre de quien te va a recoger.
+      - nombre: Estación AVE de Palencia
+        categoria: Tren
+        distancia: "125 km"
+        duracion: "1 h 15 min"
+        precio: "150 €"
+        detalle: |
+          Para coger el AVE hacia Madrid o el sur, la estación de Palencia es la más cómoda desde Campoo. Te recogemos en casa, bajamos por la autovía y te dejamos en la puerta de la estación con tiempo para encontrar tu andén.
+
+          Si vuelves en un tren de noche, no te preocupes por la hora: te esperamos a la salida y te llevamos a casa. Vigilamos el horario del tren por si llega con retraso.
+
+          Es un trayecto que muchos clientes reservan para toda la familia. En el monovolumen caben todos con sus maletas, y el precio sigue siendo por coche.
+      - nombre: Alto Campoo (Brañavieja)
+        categoria: Estación de esquí
+        distancia: "25 km"
+        duracion: "30 min"
+        precio: "35 €"
+        detalle: |
+          Subimos desde Reinosa hasta la estación de esquí de Alto Campoo, en Brañavieja, con los esquís y las botas en el portaesquís o en el maletero. Te dejamos al lado de las taquillas y te olvidas de buscar aparcamiento en los días de más gente.
+
+          Por la tarde volvemos a buscarte a la hora que digas. Si quieres quedarte un rato más, nos escribes y cambiamos la hora sin problema.
+
+          Con nieve en la carretera, salimos un poco antes y vamos con el coche preparado para el invierno. Para grupos, la furgoneta sube a toda la cuadrilla en un solo viaje.
+      - { nombre: Hospital Valdecilla, categoria: Hospital, distancia: "75 km", duracion: "55 min", precio: "95 €" }
+      - { nombre: Aeropuerto de Bilbao, categoria: Aeropuerto, distancia: "165 km", duracion: "1 h 45 min", precio: "200 €" }
+
+  flota:
+    activa: true
+    antetitulo: Vehículos
+    titulo: Un coche para cada viaje
+    texto: "Limpios, con aire acondicionado y sitio para el equipaje. Sillas para niños si nos las pides."
+    vehiculos:
+      - { nombre: Berlina, texto: "Para moverte por el valle o ir al aeropuerto con poco equipaje.", plazas: "4", maletas: "3 maletas grandes", imagen: /fotos/flota-berlina.jpg }
+      - { nombre: Monovolumen de 7 plazas, texto: "Familias y grupos pequeños, con maletero amplio para los esquís.", plazas: "7", maletas: "5 maletas", imagen: /fotos/flota-monovolumen.jpg }
+      - { nombre: Furgoneta de 9 plazas, texto: "Cuadrillas, clubes de montaña y bicis con portabicis.", plazas: "8", maletas: "8 maletas o 4 bicis", imagen: /fotos/flota-furgoneta.jpg }
+      - { nombre: Furgoneta adaptada, texto: "Rampa trasera y anclajes para viajar en tu propia silla de ruedas.", plazas: "4 + silla", maletas: "2 maletas", imagen: /fotos/flota-adaptada.jpg }
+
+  reservar:
+    activa: true
+    antetitulo: Reservar
+    titulo: Reserva en tres pasos
+    texto: "Para aeropuertos, estaciones y pistas, mejor con un día de antelación."
+    items:
+      - { titulo: Dinos el trayecto, texto: "Por teléfono, WhatsApp o aquí abajo: de dónde, a dónde, cuándo y cuántos sois." }
+      - { titulo: Te damos el precio, texto: "Precio cerrado al momento, sin taxímetro y sin sorpresas." }
+      - { titulo: Te recogemos, texto: "En casa, en el hotel o en llegadas, con un cartel con tu nombre." }
+    nota: "Si tu vuelo o tu tren se retrasa, te esperamos. Lo miramos antes de salir."
+    boton_formulario: Pedir la reserva
+
+  empresas:
+    activa: true
+    antetitulo: Empresas y hoteles
+    titulo: Cuenta para empresas y hoteles
+    texto: "Movemos a tus clientes y a tu equipo, y te lo facturamos todo a final de mes."
+    imagen: /fotos/empresas.jpg
+    items:
+      - { titulo: Una factura al mes, texto: "Todos los viajes juntos, con fecha, trayecto y quién viajó." }
+      - { titulo: Recogida con cartel, texto: "Tus clientes salen del tren o del avión y ya los estamos esperando." }
+      - { titulo: Un solo teléfono, texto: "Reserva tu equipo de recepción y nosotros nos encargamos del resto." }
+    cta: { texto: Abrir una cuenta, url: "/#contacto" }
+
+  zonas:
+    activa: true
+    antetitulo: Dónde trabajamos
+    titulo: Por todo Campoo y más allá
+    titulo_pagina: "Taxi en {zona}"
+    texto_pagina: "{negocio} te lleva desde {zona} al aeropuerto, a la estación, a las pistas o al hospital, con precio cerrado y a cualquier hora."
+    texto: "Salimos de Reinosa y recogemos en cualquier pueblo del valle. Viajes largos, a toda España."
+    imagen: /fotos/zonas.jpg
+    items:
+      - titulo: Reinosa
+        texto: "Reinosa es nuestra casa y donde más carreras hacemos. Te recogemos en tu portal, en la estación de tren, en el centro de salud o en la plaza, a cualquier hora del día o de la noche. Desde aquí salen la mayoría de nuestros traslados al aeropuerto de Santander, a la estación del AVE de Palencia y a las pistas de Alto Campoo. También hacemos los trayectos cortos de todos los días: la compra, el médico, una cena o la vuelta a casa después de las fiestas. Si lo prefieres, reserva con antelación y te confirmamos la hora por WhatsApp."
+      - titulo: Brañavieja
+        texto: "En Brañavieja, al pie de la estación de Alto Campoo, trabajamos sobre todo en temporada de nieve. Subimos a esquiadores desde Reinosa y desde los alojamientos del valle, y bajamos a quien termina el día en pistas. Llevamos los esquís, las tablas y las botas, y conocemos bien la carretera con nieve y con hielo. Fuera del invierno, recogemos a senderistas y ciclistas que suben a la zona del pico Tres Mares y del nacimiento del Ebro, y los llevamos al inicio o al final de su ruta."
+      - titulo: Aguilar de Campoo
+        texto: "Aguilar de Campoo está a un paso por la autovía y es el destino de muchos clientes que van a coger el tren o a visitar el románico del norte de Palencia. Te llevamos y te traemos desde Reinosa y desde los pueblos del valle, y también recogemos en Aguilar a quien viene a Campoo a pasar unos días. Para grupos que visitan la zona, la furgoneta permite hacer la ruta de las iglesias románicas con calma y sin preocuparse de aparcar en cada pueblo."
+      - { titulo: Matamorosa }
+      - { titulo: Fontibre }
+      - { titulo: Espinilla }
+      - { titulo: Arroyo }
+      - { titulo: Mataporquera }
+      - { titulo: Corconte }
+      - { titulo: Polientes }
+
+  opiniones:
+    activa: true
+    antetitulo: Opiniones
+    titulo: Lo que dicen quienes ya han viajado
+    testimonios:
+      - { texto: "Nuestro vuelo llegó con una hora de retraso y Luis estaba en llegadas con el cartel, como si nada. En casa a la una y por el precio que nos dijo.", autor: Ana y Pablo, nota: "Aeropuerto de Santander" }
+      - { texto: "Subimos seis amigos a Alto Campoo con todo el material en la furgoneta. Puntuales a la ida y a la vuelta.", autor: Club Montaña Besaya, nota: "Alto Campoo" }
+      - { texto: "Me lleva a las revisiones de Valdecilla y me espera a la salida. Da gusto la tranquilidad.", autor: Mari Luz G., nota: "Hospital Valdecilla" }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Lo que nos preguntan antes de viajar
+    preguntas:
+      - { pregunta: "¿Puedo saber el precio antes de subir?", respuesta: "Sí. Para los trayectos de fuera del pueblo te damos un precio cerrado al reservar, y es el que pagas aunque haya tráfico." }
+      - { pregunta: "¿Con cuánta antelación reservo para el aeropuerto?", respuesta: "Lo ideal es un día antes. Si es para hoy, llámanos: muchas veces podemos ir igual." }
+      - { pregunta: "¿Qué pasa si mi vuelo o mi tren llega tarde?", respuesta: "Miramos el horario antes de salir y te esperamos. No pagas más por un retraso que no es culpa tuya." }
+      - { pregunta: "¿Lleváis sillas para niños?", respuesta: "Sí, tenemos sillas y alzadores. Dinos la edad de los niños al reservar y la llevamos puesta." }
+      - { pregunta: "¿Puedo llevar los esquís o la bici?", respuesta: "Claro. El monovolumen lleva portaesquís y la furgoneta, portabicis. Avísanos al reservar." }
+      - { pregunta: "¿Se puede pagar con tarjeta?", respuesta: "Sí, con tarjeta, con el móvil o en efectivo. A las empresas les facturamos a final de mes." }
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: Llama y salimos
+    texto: "Contestamos a cualquier hora. Si estamos conduciendo, te devolvemos la llamada enseguida."

@@ -1,0 +1,61 @@
+---
+// Tarifas: el tablero de salidas en la banda de tinta (la firma de la plantilla). Cabeza con `antetitulo`, `titulo` y
+// `texto`; `origen` («Salidas desde Reinosa») en placa ámbar; tabla con `tarifas: [{nombre, categoria, distancia,
+// duracion, precio, detalle}]`: destino, tipo, distancia, tiempo y el precio cerrado en ámbar, grande. Las columnas
+// sin ningún dato no salen. En el móvil cada trayecto es un bloque (destino y precio arriba). Los trayectos con
+// `detalle` enlazan a su página (/traslados/<slug>/). `nota` (suplementos, condiciones) debajo. Sin trayectos ni
+// textos, no se pinta. Los precios no se inventan: sin precio, la celda queda vacía.
+import { seccion, texto as t } from '../../data/site';
+import { enlaceDe } from '../../lib/paginas';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const filas = s ? s.tarifas.filter((x) => t(x.nombre)) : [];
+const hay = (k: 'categoria' | 'distancia' | 'duracion' | 'precio') => filas.some((x) => t(x[k]));
+const col = { categoria: hay('categoria'), distancia: hay('distancia'), duracion: hay('duracion'), precio: hay('precio') };
+const origen = t(s?.origen);
+---
+
+{
+  s && (filas.length > 0 || s.titulo || s.texto) && (
+    <section id={id} class="banda banda--tinta">
+      <div class="contenedor">
+        <Titular cabeza antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        {origen && <p class="placa tarifas-cabeza-placa">{origen}</p>}
+        {filas.length > 0 && (
+          <table class="salidas">
+            <thead>
+              <tr>
+                <th scope="col">Destino</th>
+                {col.categoria && <th scope="col">Tipo</th>}
+                {col.distancia && <th scope="col">Distancia</th>}
+                {col.duracion && <th scope="col">Tiempo</th>}
+                {col.precio && <th scope="col">Precio</th>}
+              </tr>
+            </thead>
+            <tbody>
+              {filas.map((f) => (
+                <tr>
+                  <td class="salidas-destino">{enlaceDe(f) ? <a href={enlaceDe(f)}>{f.nombre}</a> : f.nombre}</td>
+                  {col.categoria && <td class="salidas-celda-tipo solo-ancho">{t(f.categoria) && <span class="salidas-tipo">{f.categoria}</span>}</td>}
+                  {col.distancia && <td class="salidas-dato solo-ancho">{f.distancia}</td>}
+                  {col.duracion && <td class="salidas-dato solo-ancho">{f.duracion}</td>}
+                  {(col.categoria || col.distancia || col.duracion) && (
+                    <td class="salidas-datos-movil">
+                      {t(f.categoria) && <span class="salidas-tipo">{f.categoria}</span>}
+                      {t(f.distancia) && <span class="salidas-dato">{f.distancia}</span>}
+                      {t(f.duracion) && <span class="salidas-dato">{f.duracion}</span>}
+                    </td>
+                  )}
+                  {col.precio && <td class="salidas-precio">{f.precio}</td>}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+        {s.nota && <p class="tarifas-nota">{s.nota}</p>}
+      </div>
+    </section>
+  )
+}

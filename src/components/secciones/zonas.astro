@@ -1,0 +1,45 @@
+---
+// Dónde trabajamos: cabeza con `antetitulo`, `titulo` y `texto`; debajo, a todo el ancho, las localidades como celdas
+// cuadradas unidas por sus bordes de tinta, como un selector de estaciones (`items: [{titulo, texto}]`). Las zonas con
+// `texto` tienen su página (/zonas/<slug>/, título `titulo_pagina` con {zona}) y su celda enlaza a ella.
+// `imagen` es la foto de las páginas por zona. Sin localidades ni textos, no se pinta.
+import { seccion } from '../../data/site';
+import { enlaceDe } from '../../lib/paginas';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const items = s ? s.items.filter((it) => it && it.titulo) : [];
+// Columnas en escritorio para que la última fila no quede coja: 10 → 5 + 5, 12 → 6 + 6, 8 → 4 + 4…
+const n = items.length;
+const cols = n <= 6 ? Math.max(n, 3) : [6, 5, 4, 7].find((c) => n % c === 0) ?? 6;
+---
+
+{
+  s && (items.length > 0 || s.titulo || s.texto) && (
+    <section id={id} class="banda banda--clara">
+      <div class="contenedor">
+        <Titular cabeza antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        {items.length > 0 && (
+          <ul class="celdas" style={`--cols:${cols}`}>
+            {items.map((it) => {
+              return (
+                <li>
+                  {enlaceDe(it) ? (
+                    <a class="celdas-nombre" href={enlaceDe(it)}>
+                      <span>{it.titulo}</span>
+                      <span class="menuda">Ver página</span>
+                    </a>
+                  ) : (
+                    <span class="celdas-nombre">{it.titulo}</span>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+        {s.cta && <p class="botones zonas-cta"><a class="btn-sec" href={s.cta.url}>{s.cta.texto}</a></p>}
+      </div>
+    </section>
+  )
+}

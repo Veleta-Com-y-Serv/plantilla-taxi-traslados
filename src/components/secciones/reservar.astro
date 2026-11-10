@@ -1,0 +1,54 @@
+---
+// Reservar: la ruta como placas cuadradas unidas por un filete de tinta (Range de Wayfind «A route as Steps»): `items:
+// [{titulo, texto}]` numerados solos. Debajo, a la izquierda, `nota` en placa ámbar, el teléfono grande y WhatsApp;
+// a la derecha, el formulario de reserva (nombre, teléfono, recogida, destino, día, hora, viajeros y comentarios) que
+// abre el correo. `boton_formulario` opcional. Banda clara.
+import { seccion, site, tel, whatsapp } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const pasos = s ? s.items.filter((it) => it && it.titulo) : [];
+const c = site.contacto;
+const boton = String(s?.boton_formulario ?? '').trim() || 'Pedir la reserva';
+const wa = whatsapp(c.whatsapp, `Hola, quiero reservar un taxi con ${site.nombre}`);
+---
+
+{
+  s && (
+    <section id={id} class="banda banda--clara">
+      <div class="contenedor">
+        <Titular cabeza antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        {pasos.length > 0 && (
+          <ol class="ruta" style={`--n:${Math.min(pasos.length, 4)}`}>
+            {pasos.map((p) => (
+              <li class="ruta-paso">
+                <h3 class="ruta-titulo">{p.titulo}</h3>
+                {p.texto && <p class="ruta-texto">{p.texto}</p>}
+              </li>
+            ))}
+          </ol>
+        )}
+        <div class="reserva">
+          <div class="reserva-lado">
+            {s.nota && <p class="placa">{s.nota}</p>}
+            {c.telefono && (
+              <a class="reserva-tel" href={tel(c.telefono)}>
+                <span class="menuda">Llama y reserva</span>
+                <span class="reserva-tel-cifra">{c.telefono}</span>
+              </a>
+            )}
+            {wa && (
+              <p><a class="btn-sec" href={wa} rel="noopener" target="_blank"><Icono nombre="whatsapp" tam={18} /> Reservar por WhatsApp</a></p>
+            )}
+          </div>
+          <div class="pozo">
+            <FormularioContacto modelo="traslado" prefijo={`${id}-f`} boton={boton} />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

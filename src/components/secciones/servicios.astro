@@ -1,0 +1,44 @@
+---
+// Servicios como filas de estado a todo el ancho (Range de Wayfind «Status as Rows»): icono en celda cuadrada con
+// borde, nombre en 800, texto, y a la derecha `disponible` («Al momento» en placa de tinta, el resto con borde).
+// `items: [{titulo, texto, icono, disponible, imagen, detalle}]`. Los que tienen `detalle` enlazan a su página
+// (/servicios/<slug>/). `cta` opcional debajo. Sin servicios ni textos, no se pinta.
+import { seccion } from '../../data/site';
+import { enlaceDe } from '../../lib/paginas';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const items = s ? s.items.filter((it) => it && it.titulo) : [];
+const ya = (v?: string) => /momento|24|ahora|ya\b/i.test(v ?? '');
+---
+
+{
+  s && (items.length > 0 || s.titulo || s.texto) && (
+    <section id={id} class="banda banda--papel">
+      <div class="contenedor">
+        <Titular cabeza antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        {items.length > 0 && (
+          <ul class="lineas">
+            {items.map((it) => (
+              <li class="linea">
+                <span class="celda-icono"><Icono nombre={it.icono || 'taxi'} tam={22} /></span>
+                <h3 class="linea-titulo">{enlaceDe(it) ? <a href={enlaceDe(it)}>{it.titulo}</a> : it.titulo}</h3>
+                {it.texto ? <p class="linea-texto">{it.texto}</p> : <span />}
+                {it.disponible ? (
+                  <span class:list={['linea-estado', { 'linea-estado--ya': ya(it.disponible) }]}>{it.disponible}</span>
+                ) : (
+                  <span />
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+        {s.cta && (
+          <p class="botones"><a class="btn-sec" href={s.cta.url}>{s.cta.texto}</a></p>
+        )}
+      </div>
+    </section>
+  )
+}

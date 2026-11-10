@@ -1,0 +1,47 @@
+---
+// Vehículos: rejilla de fotos cuadradas dentro de un marco de tinta de 2 px, con las plazas en una placa ámbar dentro
+// del marco (el texto nunca va sobre la foto suelta). `vehiculos: [{nombre, texto, plazas, maletas, imagen}]`.
+// `plazas` «7» se lee «7 plazas»; si no es un número («4 y una silla») sale tal cual. Sin vehículos ni textos, no se pinta.
+// No inventes vehículos ni plazas.
+import { seccion, texto as t } from '../../data/site';
+import { altFicha } from '../../lib/seo';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const lista = s ? s.vehiculos.filter((v) => t(v.nombre)) : [];
+const n = lista.length;
+const clase = n <= 4 || n === 6 || n === 8 || n === 9 ? `flota--${n}` : 'flota--muchos';
+const plazas = (p?: string) => (/^\d+$/.test(t(p)) ? `${t(p)} plazas` : t(p));
+---
+
+{
+  s && (n > 0 || s.titulo || s.texto) && (
+    <section id={id} class="banda banda--papel">
+      <div class="contenedor">
+        <Titular cabeza antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        {n > 0 && (
+          <ul class:list={['flota', clase]}>
+            {lista.map((v) => (
+              <li class="vehiculo">
+                {(v.imagen || v.plazas) && (
+                  <div class:list={['vehiculo-marco marco', { foto: v.imagen }]}>
+                    {v.imagen && <Imagen src={v.imagen} alt={altFicha(v)} ancho={900} alto={900} />}
+                    {t(v.plazas) && <p class="placa"><span class="vehiculo-plazas">{plazas(v.plazas)}</span></p>}
+                  </div>
+                )}
+                <h3>{v.nombre}</h3>
+                {v.texto && <p class="vehiculo-texto">{v.texto}</p>}
+                {t(v.maletas) && (
+                  <p class="vehiculo-maletas menuda"><Icono nombre="maleta" tam={18} /> {v.maletas}</p>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  )
+}

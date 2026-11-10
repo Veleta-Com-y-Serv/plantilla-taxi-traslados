@@ -1,0 +1,56 @@
+---
+// Empresas y hoteles: mitad foto a sangre (marco de tinta por dentro) y mitad texto con `antetitulo`, `titulo`, `texto`,
+// ventajas en filas con filete (`items: [{titulo, texto}]`) y `cta`. Sin imagen, el texto va en el contenedor.
+// Sin textos ni ventajas, no se pinta.
+import { seccion } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const items = s ? s.items.filter((it) => it && it.titulo) : [];
+---
+
+{
+  s && (items.length > 0 || s.titulo || s.texto) && (
+    s.imagen ? (
+      <section id={id} class="mitades">
+        <div class="foto mitad-foto">
+          <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1400} alto={1050} />
+        </div>
+        <div class="mitad-texto">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+          {items.length > 0 && (
+            <ul class="filas">
+              {items.map((it) => (
+                <li>
+                  <p class="filas-titulo">{it.titulo}</p>
+                  {it.texto && <p class="filas-texto">{it.texto}</p>}
+                </li>
+              ))}
+            </ul>
+          )}
+          {s.cta && <p class="botones"><a class="btn-sec" href={s.cta.url}>{s.cta.texto}</a></p>}
+        </div>
+      </section>
+    ) : (
+      <section id={id} class="banda banda--papel">
+        <div class="contenedor">
+          <Titular cabeza antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+          {items.length > 0 && (
+            <ul class="filas">
+              {items.map((it) => (
+                <li>
+                  <p class="filas-titulo">{it.titulo}</p>
+                  {it.texto && <p class="filas-texto">{it.texto}</p>}
+                </li>
+              ))}
+            </ul>
+          )}
+          {s.cta && <p class="botones"><a class="btn-sec" href={s.cta.url}>{s.cta.texto}</a></p>}
+        </div>
+      </section>
+    )
+  )
+}

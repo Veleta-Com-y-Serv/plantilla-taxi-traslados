@@ -1,0 +1,45 @@
+---
+// Opiniones: la primera como frase grande (Chivo Mono 500) con su autor; las demás en dos columnas con filete de tinta.
+// `testimonios: [{texto, autor, nota}]` (`nota`: el trayecto). No inventes opiniones: sin testimonios, no se pinta.
+import { seccion } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const lista = s ? s.testimonios.filter((x) => x && x.texto) : [];
+const [primera, ...resto] = lista;
+---
+
+{
+  s && lista.length > 0 && (
+    <section id={id} class="banda banda--papel">
+      <div class="contenedor">
+        <Titular cabeza antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        <figure class="cita">
+          <blockquote>{primera.texto}</blockquote>
+          {(primera.autor || primera.nota) && (
+            <figcaption class="cita-autor">
+              {primera.autor && <strong>{primera.autor}</strong>}
+              {primera.nota && <span class="menuda">{primera.nota}</span>}
+            </figcaption>
+          )}
+        </figure>
+        {resto.length > 0 && (
+          <ul class="opiniones-resto">
+            {resto.map((o) => (
+              <li>
+                <p class="opinion-texto">{o.texto}</p>
+                {(o.autor || o.nota) && (
+                  <p class="opinion-autor">
+                    {o.autor && <strong>{o.autor}</strong>}
+                    {o.nota && <span class="menuda">{o.nota}</span>}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  )
+}

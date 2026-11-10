@@ -1,0 +1,31 @@
+---
+// Preguntas frecuentes: cabeza a todo el ancho y filas `details/summary` (en dos columnas en escritorio) con el signo
+// en una celda cuadrada. `preguntas: [{pregunta, respuesta}]`. Sin preguntas, no se pinta. El JSON-LD FAQPage lo pone Base.astro.
+import { seccion } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const lista = s ? s.preguntas.filter((p) => p && p.pregunta) : [];
+---
+
+{
+  s && lista.length > 0 && (
+    <section id={id} class="banda banda--clara">
+      <div class="contenedor">
+        <Titular cabeza antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        <div class="preguntas-lista">
+          {lista.map((p) => (
+            <details class="faq">
+              <summary>
+                <span>{p.pregunta}</span>
+                <span class="faq-signo" aria-hidden="true" />
+              </summary>
+              {p.respuesta && <p class="faq-respuesta">{p.respuesta}</p>}
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

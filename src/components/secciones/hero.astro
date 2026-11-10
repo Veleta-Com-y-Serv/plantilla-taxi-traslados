@@ -1,0 +1,78 @@
+---
+// Portada «Stage» del tema Wayfind. A la izquierda (seis columnas): `antetitulo`, `titulo` (h1), `texto`, `cta` (llamar,
+// botón cobalto) y `cta_secundario` (reservar, botón con borde de tinta). A la derecha, `imagen` en un marco de tinta de
+// 2 px que llega al borde de la ventana; dentro del marco, el tablero: los tres primeros trayectos de `tarifas` con su
+// precio en ámbar sobre tinta (cabecera `tablero`, o el título de tarifas) y `destacado: {titulo, texto}` en placa ámbar.
+// Sin imagen, el texto ocupa todo el ancho y el tablero va debajo. Sin tarifas ni destacado, no hay tablero.
+import { seccion, trayectos, texto as t } from '../../data/site';
+import { altHero } from '../../lib/seo';
+import { enlaceDe } from '../../lib/paginas';
+import { enlace } from '../../lib/multipagina';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const filas = trayectos().filter((x) => t(x.precio)).slice(0, 3);
+const tarifas = seccion('tarifas');
+const cabezaTablero = t(s?.tablero) || t(tarifas?.titulo);
+const hayTablero = filas.length > 0 || !!s?.destacado;
+---
+
+{
+  s && (
+    <section id={id} class:list={['portada', { 'portada--con-foto': s.imagen }]}>
+      <div class="portada-texto">
+        {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+        <h1 class="portada-titulo">{s.titulo}</h1>
+        {s.texto && <p class="portada-parrafo">{s.texto}</p>}
+        {(s.cta || s.cta_secundario) && (
+          <div class="botones">
+            {s.cta && <a class="btn" href={s.cta.url}>{s.cta.texto}</a>}
+            {s.cta_secundario && <a class="btn-sec" href={s.cta_secundario.url}>{s.cta_secundario.texto}</a>}
+          </div>
+        )}
+      </div>
+      {(s.imagen || hayTablero) && (
+        <div class="portada-foto-marco">
+          {s.imagen && (
+            <div class="foto portada-foto">
+              <Imagen src={s.imagen} alt={altHero()} ancho={1600} alto={1200} prioridad />
+            </div>
+          )}
+          {hayTablero && (
+            <div class="portada-lado">
+              <div class="tablero">
+                {filas.length > 0 && (
+                  <>
+                    {cabezaTablero && (
+                      <div class="tablero-cabeza">
+                        <p class="tablero-titulo">{cabezaTablero}</p>
+                      </div>
+                    )}
+                    <ul class="tablero-filas">
+                      {filas.map((f) => (
+                        <li>
+                          <span class="tablero-destino">{enlaceDe(f) ? <a href={enlaceDe(f)}>{f.nombre}</a> : f.nombre}</span>
+                          <span class="tablero-precio">{f.precio}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                {s.destacado && (
+                  <div class="tablero-placa">
+                    {s.destacado.titulo && <p class="tablero-placa-titulo">{s.destacado.titulo}</p>}
+                    {s.destacado.texto && <p class="tablero-placa-texto">{s.destacado.texto}</p>}
+                  </div>
+                )}
+                {filas.length > 0 && tarifas && (
+                  <p class="tablero-pie"><a href={enlace(`/#tarifas`)}>Ver todas las tarifas</a></p>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </section>
+  )
+}
